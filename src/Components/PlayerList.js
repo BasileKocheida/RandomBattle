@@ -1,32 +1,43 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
-
-
-class PlayerList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      players: {
-        1: { name: "John", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 1 },
-        2: { name: "Jack", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 2 },
-        3: { name: "Jessy", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 3 },
-        4: { name: "Jenny", pv: 100, pvMax: 100, mana: 30, manaMax: 30, id: 4 }
-      }
+import { connect } from 'react-redux';
+import { resetTurn , hitMonster, hitBack } from '../actions/index'
+const mapStateToProps = (state) => {
+    return { 
+        players: state.players,
+        countPlayerTurn: state.countPlayerTurn,
+        monster: state.monster
     }
-  }
-  displayPlayers = () => {
-    return Object.keys(this.state.players).map(key => (
-      <PlayerCard key={this.state.players[key].id} player={this.state.players[key]} />
-    ));
-  }
-  render() {
-    return (
-      <div className='row'>
-        {this.displayPlayers()}
-      </div>
-    );
-  }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+      // dispatching plain actions
+      hit: (payload) => dispatch(hitMonster(payload)),
+      monsterHit: (payload) => dispatch(hitBack(payload)),
+      resetTurn: (reset) => dispatch(resetTurn(reset)),
 
+    }
 }
+const PlayerListConnect = ({ players, hit, monsterHit , resetTurn, countPlayerTurn }) => {
+        
+    const displayPlayers = () => {
+    
+    
+        //your code 
+        return Object.keys(players).map(key => (
+            <PlayerCard key={players[key].id} player={players[key]} />
+        ));
+    }
+
+    return (
+    //the render
+        <div className='row'>
+            {displayPlayers()}
+        </div>
+    );
+}
+
+
+    const PlayerList = connect(mapStateToProps,mapDispatchToProps)(PlayerListConnect);
 
 export default PlayerList;

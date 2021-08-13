@@ -60,7 +60,8 @@ padding: 0.1em 0.2rem !important ;
 }
 
 body {
-  background-color: #232323;
+  background: url('https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif');
+  background-position: center;
 }
 .selected{
   background-color: #212121;
@@ -71,6 +72,67 @@ position: absolute;
 font-size: 30;
 }
 
+/* Card Player */
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+}
+
+.progress{
+  margin: 2px;
+}
+
+span img{
+  border-radius: 50px 40px 40px 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+
+.container-fluid .row{
+  display: flex;
+  justify-content: center;
+}
+
+.card{
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 25%;
+  justify-content: center;
+}
+
+.card-title{
+  color: rgb(0, 0, 0);
+}
+
+.card-monstre{
+  display: flex;
+  justify-content: center;
+}
+
+
+.img-fluid{
+  animation-duration: 2.5s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+
+}
+@keyframes slidein {
+
+  0%{
+    transform: rotate(-20deg);
+   }
+
+  100%{
+    transform: rotate(20deg);
+   }
+
+}
 
 
 /*

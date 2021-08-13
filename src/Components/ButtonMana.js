@@ -1,34 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hitMonster } from '../actions/index'
+import { hitHard } from '../actions/index'
 import { hitBack } from '../actions/index'
 import { resetTurn } from '../actions/index'
 import { getRandomPlayer } from "./function"
-
 const mapStateToProps = (state, ownProps) => {
     return  {
         player: ownProps.player,
         players: state.players,
         countPlayerTurn: state.countPlayerTurn,
         monster: state.monster
-    }
+        }
   };
 
 const mapDispatchToProps = (dispatch) => {
     return {
       // dispatching plain actions
-      hit: (payload) => dispatch(hitMonster(payload)),
+      hitHard: (payload) => dispatch(hitHard(payload)),
       monsterHit: (payload) => dispatch(hitBack(payload)),
       resetTurn: (reset) => dispatch(resetTurn(reset)),
 
     }
 }
 
-const ButtonCapacityConnect = ({player, hit, monsterHit, players, resetTurn, countPlayerTurn, monster}) => {
+const ButtonManaConnect = ({player, hitHard, monsterHit, players, resetTurn, countPlayerTurn, monster}) => {
 
-    const combat = () => {
-        hit({damage: -5, playerId: player.id})
-        console.log('aie !');
+    const manaHit = () => {
+        hitHard({damage: -60, minusMana: -20, playerId: player.id})
+        console.log('KING KONG PUNCH !');
         let rndInt = getRandomPlayer(players)
         while (players[rndInt].pv <= 0 ) {
             rndInt =   getRandomPlayer(players)
@@ -67,10 +66,10 @@ const ButtonCapacityConnect = ({player, hit, monsterHit, players, resetTurn, cou
     }
 
     return (
-            <button type="button" disabled={disableButton()} onClick={ () => combat() } className="btn btn-danger material-tooltip-main ">
+            <button type="button" disabled={disableButton()} onClick={ () => manaHit() } className="btn btn-primary m-2 material-tooltip-main ">
                     hit
-                <i className="fas fa-bomb"></i> 5
-                <i className="fas fa-fire-alt"></i> - 5
+                <i className="fas fa-bomb"></i> 60 
+                <i className="fas fa-fire-alt"></i> - 20 mana
             </button>
             )
 
@@ -78,6 +77,6 @@ const ButtonCapacityConnect = ({player, hit, monsterHit, players, resetTurn, cou
    
  
 
-const ButtonCapacity = connect(mapStateToProps, mapDispatchToProps)( ButtonCapacityConnect);
+const ButtonMana = connect(mapStateToProps, mapDispatchToProps)( ButtonManaConnect);
 
-export default ButtonCapacity;
+export default ButtonMana;
